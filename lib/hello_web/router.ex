@@ -15,12 +15,32 @@ defmodule HelloWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :review_checks do
+    plug HelloWeb.Plugs.Review, true
+  end
+
   scope "/", HelloWeb do
     pipe_through :browser
 
     get "/", PageController, :index
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
+    resources "/users", UserContoller, only: [:index, :show]
+
+    resources "/authors", AuthorController do
+      resources "/books", BookController
+    end
+  end
+
+  scope "/reviews", HelloWeb do
+    pipe_through [:browser, :review_checks]
+    resources "/", ReviewController
+  end
+
+  scope "/admin-reviews", HellowWeb, as: :admin do
+    resources "/authors", AuthorController do
+      resources "/books", BookController
+    end
   end
 
   # Other scopes may use custom stacks.
