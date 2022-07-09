@@ -1,6 +1,6 @@
-# ThePhoenixCycle
+# Phoenix Store
 
-> Basic cycle of a Phoenix project
+> An e-commerce platform to manage product catalog items
 
 ### Setup
 To start your Phoenix server:
