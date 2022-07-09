@@ -25,23 +25,25 @@ defmodule HelloWeb.Router do
     get "/", PageController, :index
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
+    resources "/products", ProductController
+
     resources "/users", UserContoller, only: [:index, :show]
 
-    resources "/authors", AuthorController do
-      resources "/books", BookController
-    end
+    # resources "/authors", AuthorController do
+    #   resources "/books", BookController
+    # end
   end
 
-  scope "/reviews", HelloWeb do
-    pipe_through [:browser, :review_checks]
-    resources "/", ReviewController
-  end
+  # scope "/reviews", HelloWeb do
+  #   pipe_through [:browser, :review_checks]
+  #   resources "/", ReviewController
+  # end
 
-  scope "/admin-reviews", HellowWeb, as: :admin do
-    resources "/authors", AuthorController do
-      resources "/books", BookController
-    end
-  end
+  # scope "/admin-reviews", HellowWeb, as: :admin do
+  #   resources "/authors", AuthorController do
+  #     resources "/books", BookController
+  #   end
+  # end
 
   # Other scopes may use custom stacks.
   # scope "/api", HelloWeb do
